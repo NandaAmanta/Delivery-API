@@ -11,6 +11,7 @@ import com.dot.test.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,15 +37,21 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseBody> getAllUser() {
+    public ResponseEntity<ResponseBody> getUsers() {
         List<UserDTO> userDTOs = UserService.getAllUser();
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get users", userDTOs));
     }
 
     @GetMapping(path = "/{id}")
     public ResponseEntity<ResponseBody> getDetailUser(@PathVariable String id) {
-        UserDTO userDTO = UserService.getDetailUser(Long.parseLong(id));
+        UserDTO userDTO = UserService.getDetailUserById(Long.parseLong(id));
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get detail user", userDTO));
+    }
+
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<ResponseBody> deleteUser(@PathVariable String id) {
+        UserDTO userDTO = UserService.deleteUserById(Long.parseLong(id));
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success delete user", userDTO));
     }
 
 }

@@ -37,9 +37,16 @@ public class UserService {
         return userDTOs;
     }
 
-    public UserDTO getDetailUser(Long id) {
+    public UserDTO getDetailUserById(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with this Id"));
         UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+        return userDTO;
+    }
+
+    public UserDTO deleteUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with this Id"));
+        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+        userRepository.delete(user);
         return userDTO;
     }
 }
