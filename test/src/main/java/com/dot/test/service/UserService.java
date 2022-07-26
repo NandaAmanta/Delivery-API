@@ -33,6 +33,9 @@ public class UserService {
 
     public List<UserDTO> getAllUser() {
         List<User> users = userRepository.findAll();
+        if (users.isEmpty()) {
+            throw new UserNotFoundException("Users Not Found");
+        }
         List<UserDTO> userDTOs = UserMapper.INSTANCE.usersToUserDTOs(users);
         return userDTOs;
     }
