@@ -6,6 +6,7 @@ package com.dot.test.utils;
 
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.dto.UserUpdateDTO;
 import com.dot.test.model.User;
 import java.util.List;
 import org.mapstruct.InjectionStrategy;
@@ -26,6 +27,8 @@ public interface UserMapper {
     User toDomain(UserCreationDTO userCreationDTO);
 
     User toDomain(UserDTO userDTO);
+    
+    User toDomain(UserUpdateDTO userUpdateDTO);
 
     @Named("toDTO")
     UserDTO userToUserDTO(User user);

@@ -6,6 +6,7 @@ package com.dot.test.service;
 
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.dto.UserUpdateDTO;
 import com.dot.test.exception.UserNotFoundException;
 import com.dot.test.model.User;
 import com.dot.test.repository.UserRepository;
@@ -52,4 +53,20 @@ public class UserService {
         userRepository.delete(user);
         return userDTO;
     }
+
+    public UserDTO updateUserById(Long id, UserUpdateDTO userUpdateDTO) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with this Id"));
+        if (userUpdateDTO.getFirstName() != null) {
+            user.setFirstName(userUpdateDTO.getFirstName());
+        }
+
+        if (userUpdateDTO.getLastName() != null) {
+            user.setLastName(userUpdateDTO.getLastName());
+        }
+        
+        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
+        userRepository.save(user);
+        return userDTO;
+    }
+
 }

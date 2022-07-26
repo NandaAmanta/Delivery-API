@@ -7,6 +7,7 @@ package com.dot.test.controller;
 import com.dot.test.dto.ResponseBody;
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.dto.UserUpdateDTO;
 import com.dot.test.service.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +54,12 @@ public class UserController {
     public ResponseEntity<ResponseBody> deleteUser(@PathVariable String id) {
         UserDTO userDTO = UserService.deleteUserById(Long.parseLong(id));
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success delete user", userDTO));
+    }
+
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<ResponseBody> editUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
+        UserDTO userDTO = UserService.updateUserById(Long.parseLong(id), userUpdateDTO);
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success edit user", userDTO));
     }
 
 }
