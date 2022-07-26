@@ -24,7 +24,7 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "order_table")
-public class Order{
+public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,8 +49,14 @@ public class Order{
     @Column(name = "recipient_name")
     private String recipientName;
 
+    @Column(name = "destination", nullable = false)
+    private String destination;
+
+    @Column(name = "origin", nullable = false)
+    private String origin;
+
     @Column(name = "recipient_number")
-    private String recipient_number;
+    private String recipientNumber;
 
     @Column(name = "created_at", nullable = false)
     private Long createdAt = Instant.now().toEpochMilli();
