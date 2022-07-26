@@ -5,6 +5,7 @@
 package com.dot.test.model;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +23,8 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "user_table")
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,10 +36,16 @@ public class User implements Serializable {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "status_code")
+    private String statusCode = "200";
+
     @Column(nullable = false)
     private String phoneNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<Order> orders;
+
+    @Column(name = "created_at")
+    private Long createdAt = Instant.now().toEpochMilli();
 
 }

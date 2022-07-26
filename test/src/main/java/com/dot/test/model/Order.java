@@ -23,8 +23,8 @@ import lombok.Data;
  */
 @Entity
 @Data
-@Table(name = "user")
-public class Order implements Serializable {
+@Table(name = "order_table")
+public class Order{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
