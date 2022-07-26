@@ -4,14 +4,13 @@
  */
 package com.dot.test.utils;
 
+import com.dot.test.dto.OrderDTO;
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.model.Order;
 import com.dot.test.model.User;
-import java.util.List;
 import org.mapstruct.InjectionStrategy;
-import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
-import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -19,17 +18,12 @@ import org.mapstruct.factory.Mappers;
  * @author ASUS
  */
 @Mapper
-public interface UserMapper {
+public interface OrderMapper {
 
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
+    
+    OrderMapper INSTANCE = Mappers.getMapper(OrderMapper.class);
 
-    User toDomain(UserCreationDTO userCreationDTO);
-
-    User toDomain(UserDTO userDTO);
-
-    @Named("toDTO")
-    UserDTO userToUserDTO(User user);
-
-    @IterableMapping(qualifiedByName = "toDTO")
-    List<UserDTO> usersToUserDTOs(List<User> user);
+    Order toDomain(OrderDTO orderDTO);
+    
+    OrderDTO OrderToOrderDTO(Order order);
 }
