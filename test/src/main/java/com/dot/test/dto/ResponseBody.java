@@ -47,4 +47,8 @@ public class ResponseBody<T> {
     public static ResponseBody internalServerError() {
         return new ResponseBody(false, "500", "Internal Server Error", new ArrayList<>());
     }
+
+    public static ResponseBody internalServerError(String message) {
+        return new ResponseBody(false, "500", message, new ArrayList<>());
+    }
 }

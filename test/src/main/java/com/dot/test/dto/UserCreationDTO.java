@@ -4,6 +4,7 @@
  */
 package com.dot.test.dto;
 
+import com.sun.istack.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,14 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserCreationDTO {
+    
+    @NotNull
     private String firstName;
+    
+    @NotNull
     private String lastName;
+    
+    @NotNull
     private String phoneNumber;
+    
 }
