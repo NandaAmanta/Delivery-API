@@ -39,6 +39,21 @@ public class CityRepository {
         return res;
     }
 
+    public RajaOngkirResponse<List<CityDTO>> findAll(String provinceId) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://api.rajaongkir.com/starter/city?province=" + provinceId)
+                .get()
+                .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        Gson gson = new Gson();
+        RajaOngkirResponse<List<CityDTO>> res = gson.fromJson(response.body().string(), RajaOngkirResponse.class);
+        return res;
+    }
+
     public RajaOngkirResponse findById(String id) throws IOException {
         OkHttpClient client = new OkHttpClient();
 

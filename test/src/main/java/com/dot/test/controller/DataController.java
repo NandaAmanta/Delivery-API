@@ -6,13 +6,16 @@ package com.dot.test.controller;
 
 import com.dot.test.dto.ResponseBody;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.service.CityService;
 import com.dot.test.service.ProvinceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -26,10 +29,18 @@ public class DataController {
     @Autowired
     private ProvinceService provinceService;
 
+    @Autowired
+    private CityService cityService;
+
     @GetMapping(path = "/provinces")
-    public ResponseEntity<ResponseBody> getProvinces(Authentication auth) throws Exception {
+    public ResponseEntity<ResponseBody> getProvinces() throws Exception {
         var provinces = provinceService.getProvinces();
-        return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get users", provinces));
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get Provinces", provinces));
     }
 
+    @GetMapping(params = "/cities")
+    public ResponseEntity<ResponseBody> getCities(@Nullable @RequestParam String provinceId) throws Exception {
+        var cities = cityService.getCities(provinceId);
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get cities", cities));
+    }
 }
