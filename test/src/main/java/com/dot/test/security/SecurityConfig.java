@@ -48,10 +48,13 @@ public class SecurityConfig {
                 .csrf().disable()
                 .authorizeHttpRequests()
                 .antMatchers("/api/auth/signup").permitAll()
+                .antMatchers("/h2-console").permitAll()
                 .anyRequest().authenticated()
                 .and().logout().logoutUrl("/api/auth/logout")
-                .and().httpBasic().disable()
+                .and()
+                .httpBasic().and()
                 .anonymous().disable()
+                .formLogin().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint);
         return http.build();

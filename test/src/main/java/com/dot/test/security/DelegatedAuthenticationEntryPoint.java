@@ -4,10 +4,7 @@
  */
 package com.dot.test.security;
 
-import com.dot.test.exception.UserAuthException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
-import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +27,8 @@ public class DelegatedAuthenticationEntryPoint implements AuthenticationEntryPoi
     private HandlerExceptionResolver resolver;
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) 
-      throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
+            throws IOException, ServletException {
         resolver.resolveException(request, response, null, authException);
     }
 }

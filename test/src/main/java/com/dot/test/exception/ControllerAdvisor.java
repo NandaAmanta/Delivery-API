@@ -36,8 +36,8 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ResponseBody.unAuthenticated(ex.getMessage()), HttpStatus.FORBIDDEN);
     }
 
-//    @ExceptionHandler(Exception.class)
-//    public ResponseEntity<ResponseBody> handleUnhandleException(Exception ex) {
-//        return new ResponseEntity<>(ResponseBody.internalServerError(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ResponseBody> handleUnhandleException(Exception ex) {
+        return new ResponseEntity<>(ResponseBody.internalServerError(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
