@@ -12,6 +12,6 @@ import lombok.Data;
  */
 @Data
 public class ProvinceDTO {
-    private String provinceId;
+    private String province_id;
     private String province;
 }

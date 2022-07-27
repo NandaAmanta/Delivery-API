@@ -10,6 +10,7 @@ import com.dot.test.service.ProvinceService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,7 +27,7 @@ public class DataController {
     private ProvinceService provinceService;
 
     @GetMapping(path = "/provinces")
-    public ResponseEntity<ResponseBody> getProvinces() throws Exception {
+    public ResponseEntity<ResponseBody> getProvinces(Authentication auth) throws Exception {
         var provinces = provinceService.getProvinces();
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get users", provinces));
     }

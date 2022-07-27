@@ -9,8 +9,11 @@ import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
 import com.dot.test.model.Order;
 import com.dot.test.model.User;
+import java.util.List;
 import org.mapstruct.InjectionStrategy;
+import org.mapstruct.IterableMapping;
 import org.mapstruct.Mapper;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 /**
@@ -25,5 +28,9 @@ public interface OrderMapper {
 
     Order toDomain(OrderDTO orderDTO);
     
+    @Named("toDTO")
     OrderDTO OrderToOrderDTO(Order order);
+    
+    @IterableMapping(qualifiedByName = "toDTO")
+    List<OrderDTO> ordersToOrderDTOs(List<Order> order);
 }

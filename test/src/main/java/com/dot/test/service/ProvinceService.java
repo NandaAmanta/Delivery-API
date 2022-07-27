@@ -7,6 +7,7 @@ package com.dot.test.service;
 import com.dot.test.dto.ProvinceDTO;
 import com.dot.test.dto.RajaOngkirResponseBody;
 import com.dot.test.repository.ProvinceRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +28,17 @@ public class ProvinceService {
         if (response.getStatus().getCode() != 200) {
             throw new Exception(response.getStatus().getDescription());
         }
-        
+
         return response.getResults();
-        
+    }
+
+    public ProvinceDTO getProvinceDetail(String id) throws IOException, Exception {
+        RajaOngkirResponseBody response = provinceRepository.findById(id).getRajaongkir();
+        if (response.getStatus().getCode() != 200) {
+            throw new Exception(response.getStatus().getDescription());
+        }
+        System.out.println("-----------((((()");
+        return new ObjectMapper().convertValue(response.getResults(), ProvinceDTO.class);
+
     }
 }

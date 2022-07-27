@@ -37,7 +37,19 @@ public class ProvinceRepository {
         return res;
     }
 
-//    public ProvinceDTO findById(String id) {
-//
-//    }
+    public RajaOngkirResponse findById(String id) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://api.rajaongkir.com/starter/province?id=" + id)
+                .get()
+                .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
+                .build();
+
+        Response response = client.newCall(request).execute();
+        Gson gson = new Gson();
+        String responseData = response.body().string();
+        RajaOngkirResponse res = gson.fromJson(responseData, RajaOngkirResponse.class);
+        return res;
+    }
 }
