@@ -32,11 +32,7 @@ public class OrderService {
 
     public OrderDTO createNewOrder(OrderCreationDTO req, String email) throws Exception {
         var origin = provinceService.getProvinceDetail(req.getOriginId());
-                System.out.println("----origin------------");
-
         var destination = provinceService.getProvinceDetail(req.getDestinationId());
-                System.out.println("----desti------------");
-
         var user = userRepository.findByEmail(email);
 
         Order order = new Order();

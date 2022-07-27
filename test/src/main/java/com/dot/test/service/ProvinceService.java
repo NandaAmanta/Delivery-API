@@ -11,6 +11,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,6 +24,7 @@ public class ProvinceService {
     @Autowired
     private ProvinceRepository provinceRepository;
 
+    @Cacheable("provinces")
     public List<ProvinceDTO> getProvinces() throws IOException, Exception {
         RajaOngkirResponseBody<List<ProvinceDTO>> response = provinceRepository.findAll().getRajaongkir();
         if (response.getStatus().getCode() != 200) {
@@ -37,7 +39,6 @@ public class ProvinceService {
         if (response.getStatus().getCode() != 200) {
             throw new Exception(response.getStatus().getDescription());
         }
-        System.out.println("-----------((((()");
         return new ObjectMapper().convertValue(response.getResults(), ProvinceDTO.class);
 
     }
