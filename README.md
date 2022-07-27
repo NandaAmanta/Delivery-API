@@ -1,11 +1,11 @@
 # Dot-Test
-Ini merupakan repository saya untuk menjawab test
+Ini merupakan repository saya untuk menjawab test<br/>
 
-saya membuat aplikasi sederhana yaitu pembuatan order pengiriman package
-saya memberikan authentication sederhana dengan httpBasic
+saya membuat aplikasi sederhana yaitu pembuatan order pengiriman package<br/>
+saya memberikan authentication sederhana dengan httpBasic<br/>
 
-pertama yang harus dilakukan sebelum mengakses endpoint yang ada adalah signup dengan mengakses endpoint berikut :
-POST /api/auth/signup
+pertama yang harus dilakukan sebelum mengakses endpoint yang ada adalah signup dengan mengakses endpoint berikut :<br/>
+POST /api/auth/signup<br/>
 body : <br/>
 
   {<br/>
@@ -16,13 +16,13 @@ body : <br/>
 }<br/>
 
 
-Dokumentasi api : 
-GET /api/user -> mendapatkan seluruh data user.
-GET /api/user/{id} -> mendapatkan detail user.
-GET /api/order -> mendapatkan seluruh order.
-GET /api/data/provinces -> mendapatkan seluruh data province
+Dokumentasi api : <br/>
+GET /api/user -> mendapatkan seluruh data user.<br/>
+GET /api/user/{id} -> mendapatkan detail user.<br/>
+GET /api/order -> mendapatkan seluruh order.<br/>
+GET /api/data/provinces -> mendapatkan seluruh data province<br/>
 
-POST /api/order -> membuat order.
+POST /api/order -> membuat order.<br/>
 body  : <br/>
 { <br/>
     "packageWeight": 5,<br/>
