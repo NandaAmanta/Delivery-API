@@ -4,6 +4,8 @@
  */
 package com.dot.test.service;
 
+import com.dot.test.dto.OrderCreationDTO;
+import com.dot.test.dto.OrderDTO;
 import org.springframework.stereotype.Service;
 
 /**
@@ -13,4 +15,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderService {
     
+//    public OrderDTO createNewOrder(OrderCreationDTO req){
+//        
+//    }
+//    
 }

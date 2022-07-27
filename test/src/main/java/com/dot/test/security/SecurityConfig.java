@@ -46,17 +46,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeHttpRequests()
-                .antMatchers("/api/auth/signup").permitAll()
-                .antMatchers("/h2-console").permitAll()
+                .authorizeRequests().antMatchers("/api/auth/signup").permitAll()
                 .anyRequest().authenticated()
-                .and().logout().logoutUrl("/api/auth/logout")
-                .and()
-                .httpBasic().and()
-                .anonymous().disable()
-                .formLogin().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint);
+                .and().httpBasic().and()
+                .exceptionHandling().authenticationEntryPoint(authEntryPoint);
         return http.build();
     }
 
