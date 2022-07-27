@@ -4,17 +4,10 @@
  */
 package com.dot.test.dto;
 
-import lombok.Data;
-
 /**
  *
  * @author ASUS
  */
-@Data
-public class CityDTO extends ProvinceDTO {
-    private String city_id;
-    private String type;
-    private String city_name;
-    private String postal_code;
-
+public class CourierDTO {
+    
 }

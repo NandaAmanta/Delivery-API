@@ -55,4 +55,8 @@ public class ResponseBody<T> {
     public static ResponseBody internalServerError(String message) {
         return new ResponseBody(false, "500", message, new ArrayList<>());
     }
+    
+    public static ResponseBody timeOut(String message) {
+        return new ResponseBody(false, "408", message, new ArrayList<>());
+    }
 }

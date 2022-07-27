@@ -27,7 +27,7 @@ public class ProvinceService {
     @Cacheable("provinces")
     public List<ProvinceDTO> getProvinces() throws IOException, Exception {
         RajaOngkirResponseBody<List<ProvinceDTO>> response = provinceRepository.findAll().getRajaongkir();
-        if (response.getStatus().getCode() != 200) {
+        if (response.getStatus().getCode() == 404) {
             throw new Exception(response.getStatus().getDescription());
         }
 
