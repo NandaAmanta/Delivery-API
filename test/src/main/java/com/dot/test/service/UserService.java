@@ -4,7 +4,6 @@
  */
 package com.dot.test.service;
 
-import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
 import com.dot.test.dto.UserUpdateDTO;
 import com.dot.test.exception.UserNotFoundException;
@@ -13,6 +12,9 @@ import com.dot.test.repository.UserRepository;
 import com.dot.test.utils.UserMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 /**
@@ -20,16 +22,18 @@ import org.springframework.stereotype.Service;
  * @author ASUS
  */
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
 
-    public UserDTO addNewUser(UserCreationDTO userCreationDTO) {
-        User user = UserMapper.INSTANCE.toDomain(userCreationDTO);
-        user = userRepository.save(user);
-        UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
-        return userDTO;
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not exist", email)));
+        UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
+                .authorities(user.getUserRole().toString())
+                .password(user.getPassword()).build();
+        return userDetails;
     }
 
     public List<UserDTO> getAllUser() {
@@ -56,14 +60,14 @@ public class UserService {
 
     public UserDTO updateUserById(Long id, UserUpdateDTO userUpdateDTO) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found with this Id"));
-        if (userUpdateDTO.getFirstName() != null) {
-            user.setFirstName(userUpdateDTO.getFirstName());
+        if (userUpdateDTO.getFullName() != null) {
+            user.setFullName(userUpdateDTO.getFullName());
         }
 
-        if (userUpdateDTO.getLastName() != null) {
-            user.setLastName(userUpdateDTO.getLastName());
+        if (userUpdateDTO.getPhoneNumber() != null) {
+            user.setPhoneNumber(userUpdateDTO.getPhoneNumber());
         }
-        
+
         UserDTO userDTO = UserMapper.INSTANCE.userToUserDTO(user);
         userRepository.save(user);
         return userDTO;

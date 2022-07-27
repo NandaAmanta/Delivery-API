@@ -4,7 +4,7 @@
  */
 package com.dot.test.dto;
 
-import com.sun.istack.NotNull;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,14 +15,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class UserCreationDTO {
-    
+
     @NotNull
-    private String firstName;
-    
+    private String fullName;
     @NotNull
-    private String lastName;
-    
+    private String email;
+
+    @NotNull
+    private String password;
+
     @NotNull
     private String phoneNumber;
-    
+
 }

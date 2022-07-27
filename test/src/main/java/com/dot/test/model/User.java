@@ -9,6 +9,8 @@ import java.time.Instant;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,17 +26,20 @@ import lombok.Data;
 @Entity
 @Data
 @Table(name = "user_table")
-public class User{
+public class User implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "first_name")
-    private String firstName;
+    @Column(name = "full_name")
+    private String fullName;
 
-    @Column(name = "last_name")
-    private String lastName;
+    @Column(name = "email",unique = true)
+    private String email;
+
+    @Column(name = "password")
+    private String password;
 
     @Column(name = "status_code")
     private String statusCode = "200";
@@ -47,5 +52,9 @@ public class User{
 
     @Column(name = "created_at")
     private Long createdAt = Instant.now().toEpochMilli();
+    
+    @Column(name = "user_role")
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
 
 }

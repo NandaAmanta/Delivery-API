@@ -40,6 +40,10 @@ public class ResponseBody<T> {
         return new ResponseBody(false, "400", "Bad Request", new ArrayList<>());
     }
 
+    public static ResponseBody unAuthenticated(String message) {
+        return new ResponseBody(false, "403", message, new ArrayList<>());
+    }
+
     public static ResponseBody badRequest(String message) {
         return new ResponseBody(false, "400", message, new ArrayList<>());
     }

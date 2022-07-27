@@ -32,12 +32,6 @@ public class UserController {
     @Autowired
     private UserService UserService;
 
-    @PostMapping
-    public ResponseEntity<ResponseBody> addNewUser(@RequestBody UserCreationDTO userCreationDTO) {
-        UserDTO userDTO = UserService.addNewUser(userCreationDTO);
-        return ResponseEntity.ok(new ResponseBody(true, "200", "Success adding new user", userDTO));
-    }
-
     @GetMapping
     public ResponseEntity<ResponseBody> getUsers() {
         List<UserDTO> userDTOs = UserService.getAllUser();
