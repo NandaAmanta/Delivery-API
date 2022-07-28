@@ -23,8 +23,8 @@ public class OrderCreationDTO {
     @NotNull
     private String recipientNumber;
     @NotNull
-    private String destinationId;
+    private String destinationCityId;
     @NotNull
-    private String originId;
+    private String originCityId;
 
 }

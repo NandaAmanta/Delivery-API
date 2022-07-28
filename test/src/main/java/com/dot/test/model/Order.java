@@ -52,8 +52,20 @@ public class Order implements Serializable {
     @Column(name = "destination", nullable = false)
     private String destination;
 
+    @Column(name = "destination_city_id", nullable = false)
+    private String destinationCityId;
+
+    @Column(name = "destination_province_id", nullable = false)
+    private String destinationProvinceId;
+
     @Column(name = "origin", nullable = false)
     private String origin;
+
+    @Column(name = "origin_city_id", nullable = false)
+    private String originCityId;
+
+    @Column(name = "origin_province_id", nullable = false)
+    private String originProvinceId;
 
     @Column(name = "recipient_number")
     private String recipientNumber;
