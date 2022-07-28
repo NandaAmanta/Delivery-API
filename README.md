@@ -21,6 +21,8 @@ GET /api/user -> mendapatkan seluruh data user.<br/>
 GET /api/user/{id} -> mendapatkan detail user.<br/>
 GET /api/order -> mendapatkan seluruh order.<br/>
 GET /api/data/provinces -> mendapatkan seluruh data province<br/>
+GET /api/data/cities -> mendapatkan seluruh data cities<br/>
+GET /api/data/cities?provinceId={provinceId} -> mendapatkan seluruh data cities yang berada di province dari provinceId.<br/>
 
 POST /api/order -> membuat order.<br/>
 body  : <br/>
