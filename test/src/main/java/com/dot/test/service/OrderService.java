@@ -13,6 +13,8 @@ import com.dot.test.repository.UserRepository;
 import com.dot.test.utils.OrderMapper;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -31,6 +33,7 @@ public class OrderService {
     @Autowired
     private UserRepository userRepository;
 
+    @CacheEvict(value = "orders",allEntries = true)
     public OrderDTO createNewOrder(OrderCreationDTO req, String email) throws Exception {
         var originCity = cityService.getCity(req.getOriginCityId());
         var destinationCity = cityService.getCity(req.getDestinationCityId());
@@ -56,6 +59,7 @@ public class OrderService {
         return orderDTO;
     }
 
+    @Cacheable("orders")
     public List<OrderDTO> getOrders() {
         var orders = orderRepository.findAll();
         List<OrderDTO> orderDTO = OrderMapper.INSTANCE.ordersToOrderDTOs(orders);

@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
@@ -73,6 +74,12 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @Override
     public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return new ResponseEntity<>(ResponseBody.dataNotFound("Resource Not found"), HttpStatus.NOT_FOUND);
+    }
+
+    @Override
+    public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data."), HttpStatus.BAD_REQUEST);
+
     }
 
     @ExceptionHandler(Exception.class)
