@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,6 +27,7 @@ public class CityService {
     @Autowired
     private CityRepository cityRepository;
 
+    @Cacheable("cities")
     public List<CityDTO> getCities(String provinceId) throws IOException, TimeoutException {
         RajaOngkirResponse<List<CityDTO>> response;
 
@@ -48,8 +50,7 @@ public class CityService {
         if (response.getStatus().getCode() != 200) {
             throw new PartnerApiException();
         }
-        
-        
+
         return new ObjectMapper().convertValue(response.getResults(), CityDTO.class);
     }
 }

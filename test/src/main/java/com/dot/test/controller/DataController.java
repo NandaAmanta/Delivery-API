@@ -5,14 +5,11 @@
 package com.dot.test.controller;
 
 import com.dot.test.dto.ResponseBody;
-import com.dot.test.dto.UserDTO;
 import com.dot.test.service.CityService;
 import com.dot.test.service.ProvinceService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,7 +35,7 @@ public class DataController {
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get Provinces", provinces));
     }
 
-    @GetMapping(params = "/cities")
+    @GetMapping(path = "/cities")
     public ResponseEntity<ResponseBody> getCities(@Nullable @RequestParam String provinceId) throws Exception {
         var cities = cityService.getCities(provinceId);
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get cities", cities));

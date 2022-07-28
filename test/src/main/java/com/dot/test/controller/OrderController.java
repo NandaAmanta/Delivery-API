@@ -6,9 +6,7 @@ package com.dot.test.controller;
 
 import com.dot.test.dto.OrderCreationDTO;
 import com.dot.test.dto.ResponseBody;
-import com.dot.test.dto.UserDTO;
 import com.dot.test.service.OrderService;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
