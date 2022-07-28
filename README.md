@@ -29,6 +29,6 @@ body  : <br/>
     "courier": "JNT",<br/>
     "recipientName": "agus",<br/>
     "recipientNumber": "089999",<br/>
-    "destinationId": "1",         ---> id dapat didapatkan melaui endpoint /api/data/provinces , lalu dapat dipilih salah satu province_idnya <br/>
-    "originId" : "2"               ---> id dapat didapatkan melaui endpoint /api/data/provinces , lalu dapat dipilih salah satu province_idnya <br/>
+    "destinationCityId": "1",         ---> id dapat didapatkan melaui endpoint /api/data/cities , lalu dapat dipilih salah satu province_idnya <br/>
+    "originCityId" : "2"               ---> id dapat didapatkan melaui endpoint /api/data/cities , lalu dapat dipilih salah satu province_idnya <br/>
 }
