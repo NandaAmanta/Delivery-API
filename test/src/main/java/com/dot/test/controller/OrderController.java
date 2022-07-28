@@ -7,6 +7,7 @@ package com.dot.test.controller;
 import com.dot.test.dto.OrderCreationDTO;
 import com.dot.test.dto.ResponseBody;
 import com.dot.test.service.OrderService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -28,7 +29,7 @@ public class OrderController {
     private OrderService orderService;
 
     @PostMapping
-    public ResponseEntity<ResponseBody> createNewOrder(@RequestBody OrderCreationDTO req, Authentication auth) throws Exception {
+    public ResponseEntity<ResponseBody> createNewOrder(@Valid @RequestBody OrderCreationDTO req, Authentication auth) throws Exception {
         var orderDTO = orderService.createNewOrder(req, auth.getName());
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success create new order", orderDTO));
     }

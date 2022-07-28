@@ -8,7 +8,6 @@ import com.dot.test.dto.ResponseBody;
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
 import com.dot.test.service.AuthService;
-import com.dot.test.service.UserService;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

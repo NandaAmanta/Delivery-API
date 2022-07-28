@@ -21,24 +21,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class OrderService {
-    
-    @Autowired
-    private ProvinceService provinceService;
-    
+
     @Autowired
     private CityService cityService;
-    
+
     @Autowired
     private OrderRepository orderRepository;
-    
+
     @Autowired
     private UserRepository userRepository;
-    
+
     public OrderDTO createNewOrder(OrderCreationDTO req, String email) throws Exception {
         var originCity = cityService.getCity(req.getOriginCityId());
         var destinationCity = cityService.getCity(req.getDestinationCityId());
         var user = userRepository.findByEmail(email);
-        
+
         Order order = new Order();
         order.setCost(1000);
         order.setCourier("JNT");
@@ -53,18 +50,18 @@ public class OrderService {
         order.setRecipientNumber(req.getRecipientNumber());
         order.setStatusCode("200");
         order.setUser(user.get());
-        
+
         orderRepository.save(order);
         OrderDTO orderDTO = OrderMapper.INSTANCE.OrderToOrderDTO(order);
         return orderDTO;
     }
-    
+
     public List<OrderDTO> getOrders() {
         var orders = orderRepository.findAll();
         List<OrderDTO> orderDTO = OrderMapper.INSTANCE.ordersToOrderDTOs(orders);
-        
+
         return orderDTO;
-        
+
     }
-    
+
 }

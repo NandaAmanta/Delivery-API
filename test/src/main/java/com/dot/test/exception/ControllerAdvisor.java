@@ -5,16 +5,23 @@
 package com.dot.test.exception;
 
 import com.dot.test.dto.ResponseBody;
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import java.security.ProviderException;
 import java.util.concurrent.TimeoutException;
 import org.hibernate.PropertyValueException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 /**
  *
@@ -30,7 +37,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({PropertyValueException.class, HttpClientErrorException.BadRequest.class, IllegalArgumentException.class})
     public ResponseEntity<ResponseBody> handlePropertyValue() {
-        return new ResponseEntity<>(ResponseBody.badRequest("Invalid Bad Request, please check your data."), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data."), HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler({AuthenticationException.class})
@@ -52,9 +59,25 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseBody> handleTimeOutException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.timeOut("Request Time out"), HttpStatus.REQUEST_TIMEOUT);
     }
-    
+
+    @Override
+    public ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data."), HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<Object> handleHttpRequestMethodNotSupported(HttpRequestMethodNotSupportedException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ResponseBody.methodNotAllowed("Request method not supported"), HttpStatus.METHOD_NOT_ALLOWED);
+    }
+
+    @Override
+    public ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ResponseBody.dataNotFound("Resource Not found"), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseBody> handleUnhandleException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.internalServerError(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
