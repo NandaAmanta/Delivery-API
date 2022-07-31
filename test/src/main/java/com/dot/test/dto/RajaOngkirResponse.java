@@ -4,6 +4,7 @@
  */
 package com.dot.test.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,7 @@ import lombok.Setter;
  *
  * @author ASUS
  */
-@Getter
-@Setter
+@Data
 public class RajaOngkirResponse<T> {
 
     private RajaOngkirResponseBody<T> rajaongkir;

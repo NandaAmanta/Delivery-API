@@ -28,20 +28,24 @@ public class OrderService {
     private CityService cityService;
 
     @Autowired
+    private PricingService pricingService;
+
+    @Autowired
     private OrderRepository orderRepository;
 
     @Autowired
     private UserRepository userRepository;
 
-    @CacheEvict(value = "orders",allEntries = true)
+    @CacheEvict(value = "orders", allEntries = true)
     public OrderDTO createNewOrder(OrderCreationDTO req, String email) throws Exception {
         var originCity = cityService.getCity(req.getOriginCityId());
         var destinationCity = cityService.getCity(req.getDestinationCityId());
         var user = userRepository.findByEmail(email);
+        var pricing = pricingService.getPricingDelivery(req.getOriginCityId(), req.getDestinationCityId(), req.getPackageWeight(), req.getCourier());
 
         Order order = new Order();
-        order.setCost(1000);
-        order.setCourier("JNT");
+        order.setCost(pricing);
+        order.setCourier(req.getCourier());
         order.setOrigin(String.format("%s %s, province %s", originCity.getType(), originCity.getCity_name(), originCity.getProvince()));
         order.setOriginCityId(originCity.getCity_id());
         order.setOriginProvinceId(originCity.getProvince_id());

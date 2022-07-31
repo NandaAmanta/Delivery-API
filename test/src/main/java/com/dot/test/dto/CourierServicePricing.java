@@ -4,7 +4,6 @@
  */
 package com.dot.test.dto;
 
-import java.util.List;
 import lombok.Data;
 
 /**
@@ -12,9 +11,9 @@ import lombok.Data;
  * @author ASUS
  */
 @Data
-public class CourierDTO {
+public class CourierServicePricing {
+    private String etd;
+    private int value;
+    private String note;
 
-    private String code;
-    private String name;
-    private List<CourierService> costs;
 }

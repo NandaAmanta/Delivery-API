@@ -41,6 +41,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data."), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(CourierNotFoundException.class)
+    public ResponseEntity<ResponseBody> handleCourierNotFoundException() {
+        return new ResponseEntity<>(ResponseBody.dataNotFound("Courier not found. currently we only have  pos, tiki, dan jne as our courier."), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler({AuthenticationException.class})
     public ResponseEntity<ResponseBody> handleAuthException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.unAuthenticated("You're not Authenticated. if you dont have an account, you can create one for you first on /api/auth/signup"), HttpStatus.FORBIDDEN);
