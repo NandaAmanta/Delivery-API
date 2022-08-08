@@ -7,8 +7,8 @@ package com.dot.test.controller;
 import com.dot.test.dto.ResponseBody;
 import com.dot.test.dto.UserCreationDTO;
 import com.dot.test.dto.UserDTO;
+import com.dot.test.dto.UserLoginDTO;
 import com.dot.test.service.AuthService;
-import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,8 +33,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success adding new user", userDTO));
     }
 
-    @PostMapping(path = "/logout")
-    public ResponseEntity<ResponseBody> logOut() {
-        return ResponseEntity.ok(new ResponseBody(true, "200", "Success to Log out ", new ArrayList<>()));
+    @PostMapping(path = "/login")
+    public ResponseEntity<ResponseBody> login(@RequestBody UserLoginDTO userLoginDTO) {
+        var token = authService.login(userLoginDTO);
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success Generate Token", token));
     }
+
 }

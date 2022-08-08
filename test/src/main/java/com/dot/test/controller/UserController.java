@@ -33,25 +33,25 @@ public class UserController {
     private UserService UserService;
 
     @GetMapping
-    public ResponseEntity<ResponseBody> getUsers() {
+    public ResponseEntity<ResponseBody<UserDTO>> getUsers() {
         List<UserDTO> userDTOs = UserService.getAllUser();
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get users", userDTOs));
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<ResponseBody> getDetailUser(@PathVariable String id) {
+    public ResponseEntity<ResponseBody<UserDTO>> getDetailUser(@PathVariable String id) {
         UserDTO userDTO = UserService.getDetailUserById(Long.parseLong(id));
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get detail user", userDTO));
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<ResponseBody> deleteUser(@PathVariable String id) {
+    public ResponseEntity<ResponseBody<UserDTO>> deleteUser(@PathVariable String id) {
         UserDTO userDTO = UserService.deleteUserById(Long.parseLong(id));
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success delete user", userDTO));
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<ResponseBody> editUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
+    public ResponseEntity<ResponseBody<UserDTO>> editUser(@PathVariable String id, @RequestBody UserUpdateDTO userUpdateDTO) {
         UserDTO userDTO = UserService.updateUserById(Long.parseLong(id), userUpdateDTO);
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success edit user", userDTO));
     }

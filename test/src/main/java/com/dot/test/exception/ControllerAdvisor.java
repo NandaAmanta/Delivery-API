@@ -5,8 +5,7 @@
 package com.dot.test.exception;
 
 import com.dot.test.dto.ResponseBody;
-import com.fasterxml.jackson.databind.exc.InvalidFormatException;
-import java.security.ProviderException;
+import io.jsonwebtoken.SignatureException;
 import java.util.concurrent.TimeoutException;
 import org.hibernate.PropertyValueException;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +21,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import org.springframework.web.servlet.resource.ResourceHttpRequestHandler;
 
 /**
  *
@@ -46,7 +44,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(ResponseBody.dataNotFound("Courier not found. currently we only have  pos, tiki, dan jne as our courier."), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({AuthenticationException.class})
+    @ExceptionHandler({AuthenticationException.class,SignatureException.class})
     public ResponseEntity<ResponseBody> handleAuthException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.unAuthenticated("You're not Authenticated. if you dont have an account, you can create one for you first on /api/auth/signup"), HttpStatus.FORBIDDEN);
     }

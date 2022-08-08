@@ -4,21 +4,17 @@
  */
 package com.dot.test.security;
 
-import com.dot.test.service.UserService;
-import com.dot.test.utils.PasswordEncoder;
-import javax.annotation.Resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  *
@@ -28,10 +24,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class SecurityConfig {
 
     @Autowired
-    private UserService userService;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    AuthenticationFilter filter;
 
     @Autowired
     @Qualifier("delegatedAuthenticationEntryPoint")
@@ -46,18 +39,14 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests().antMatchers("/api/auth/signup", "/h2-console/**").permitAll()
-                .anyRequest().authenticated()
-                .and().httpBasic().and()
+                .authorizeRequests().antMatchers("/api/auth/signup", "/api/auth/login", "/h2-console/**").permitAll()
+                .anyRequest().authenticated().and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint);
+
+        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-//    @Bean
-//    public DaoAuthenticationProvider daoAuthenticationProvider() {
-//        var authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userService);
-//        authProvider.setPasswordEncoder(passwordEncoder.getEncoder());
-//        return authProvider;
-//    }
 }
