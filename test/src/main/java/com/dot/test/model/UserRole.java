@@ -9,5 +9,5 @@ package com.dot.test.model;
  * @author ASUS
  */
 public enum UserRole {
-    USER
+    USER, ADMIN
 }

@@ -36,7 +36,7 @@ public class User implements Serializable {
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "email",unique = true)
+    @Column(name = "email", unique = true)
     private String email;
 
     @Column(name = "password")
@@ -48,12 +48,15 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Column(nullable = false)
+    private Boolean lock = true;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;
 
     @Column(name = "created_at")
     private Long createdAt = Instant.now().toEpochMilli();
-    
+
     @Column(name = "user_role")
     @Enumerated(EnumType.STRING)
     private UserRole userRole;

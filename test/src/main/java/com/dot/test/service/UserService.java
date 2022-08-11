@@ -32,6 +32,7 @@ public class UserService implements UserDetailsService {
         User user = userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(String.format("User with email %s not exist", email)));
         UserDetails userDetails = org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
                 .authorities(user.getUserRole().toString())
+                .accountLocked(user.getLock())
                 .password(user.getPassword()).build();
         return userDetails;
     }
