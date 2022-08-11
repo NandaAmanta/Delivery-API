@@ -1,36 +1,113 @@
-# Delivary API
-Ini merupakan repository saya untuk menjawab test<br/>
 
-saya membuat aplikasi sederhana yaitu pembuatan order pengiriman package<br/>
-saya memberikan authentication sederhana dengan httpBasic<br/>
+# Delivery API
 
-pertama yang harus dilakukan sebelum mengakses endpoint yang ada adalah signup dengan mengakses endpoint berikut :<br/>
-POST /api/auth/signup<br/>
-body : <br/>
+This repository is about my simple project using Spring Boot. 
+So Delivery API is an simple API for order a delivery service.
 
-  {<br/>
-    "fullName":"nanda",<br/>
-    "email":"nansamgr@gmail.coms",<br/>
-    "password":"nanda0011",<br/>
-    "phoneNumber":"0895330667787"<br/>
-}<br/>
-
-
-Dokumentasi api : <br/>
-GET /api/user -> mendapatkan seluruh data user.<br/>
-GET /api/user/{id} -> mendapatkan detail user.<br/>
-GET /api/order -> mendapatkan seluruh order.<br/>
-GET /api/data/provinces -> mendapatkan seluruh data province<br/>
-GET /api/data/cities -> mendapatkan seluruh data cities<br/>
-GET /api/data/cities?provinceId={provinceId} -> mendapatkan seluruh data cities yang berada di province dari provinceId.<br/>
-
-POST /api/order -> membuat order.<br/>
-body  : <br/>
-{ <br/>
-    "packageWeight": 5,<br/>
-    "courier": "JNT",<br/>
-    "recipientName": "agus",<br/>
-    "recipientNumber": "089999",<br/>
-    "destinationCityId": "1",         ---> id dapat didapatkan melaui endpoint /api/data/cities , lalu dapat dipilih salah satu city_idnya <br/>
-    "originCityId" : "2"               ---> id dapat didapatkan melaui endpoint /api/data/cities , lalu dapat dipilih salah satu city_idnya <br/>
+This project is using Spring, H2, JWT.
+## API Reference
+response : 
+```
+{
+    "ok": Boolean,
+    "statusCode": String,
+    "statusMessage": String,
+    "payload": ...
 }
+```
+### Authentication
+At first we have to sign in as user before using the provided endpoints
+
+#### Log in
+
+```http
+  POST /api/auth/login
+```
+body eg : 
+```
+{
+    "email":"nansamgr@gmail.com",
+    "password":"thisissecret"
+}
+```
+you will get a token and **you have to add that token on header request  with key "Authorization" and value "Bearer your_token" when you try access any other endpoints.**
+
+
+but if dont have any account yet, you can create new one in signup endpoint
+#### Sign up
+
+```http
+  POST /api/auth/signup
+```
+body eg : 
+```
+{
+    "fullName":"I Putu Nanda Amanta",
+    "email":"nansamgr@gmail.com",
+    "password":"thisissecret",
+    "phoneNumber":"089999999999"
+}
+```
+
+
+### Data
+#### Province
+To get all provinces data.
+```http
+  GET /api/data/provinces
+```
+
+
+To get 1 province data
+
+```http
+  GET /api/data/provinces/{id}
+```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
+#### City
+
+To get all Cities data.
+```http
+  GET /api/data/cities
+```
+
+
+### Order
+
+To get all orders logged user.
+```http
+  GET /api/order
+```
+
+To create new order.
+```http
+  POST /api/order
+```
+
+body eg :
+```
+{
+    "packageWeight": 12,
+    "courier": "jne",
+    "recipientName": "dodo",
+    "recipientNumber": "0899990009",
+    "destinationCityId": "1",
+    "originCityId" : "2"
+}
+```
+
+| field | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `destinationCityId`      | `string` | **Required**. city_id, you can get it from /api/data/cities|
+| `originCityId`      | `string` | **Required**. city_id, you can get it from /api/data/cities|
+
+
+## Acknowledgements
+
+ - [City, Province and Pricing Data](https://rajaongkir.com/)
+
+
