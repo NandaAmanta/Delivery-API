@@ -6,6 +6,7 @@ package com.dot.test.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,7 +49,7 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
-    private Set<Order> orders;
+    private List<Order> orders;
 
     @Column(name = "created_at")
     private Long createdAt = Instant.now().toEpochMilli();

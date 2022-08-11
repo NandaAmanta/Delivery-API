@@ -6,6 +6,7 @@ package com.dot.test.service;
 
 import com.dot.test.dto.OrderCreationDTO;
 import com.dot.test.dto.OrderDTO;
+import com.dot.test.exception.OrderNotFoundException;
 import com.dot.test.model.Order;
 import com.dot.test.repository.CityRepository;
 import com.dot.test.repository.OrderRepository;
@@ -64,8 +65,8 @@ public class OrderService {
     }
 
     @Cacheable("orders")
-    public List<OrderDTO> getOrders() {
-        var orders = orderRepository.findAll();
+    public List<OrderDTO> getOrdersByOwner(String username) {
+        var orders = userRepository.findByEmail(username).orElseThrow(()-> new OrderNotFoundException()).getOrders();
         List<OrderDTO> orderDTO = OrderMapper.INSTANCE.ordersToOrderDTOs(orders);
 
         return orderDTO;

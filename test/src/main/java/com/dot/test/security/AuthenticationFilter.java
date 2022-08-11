@@ -40,14 +40,12 @@ public class AuthenticationFilter extends OncePerRequestFilter {
         String username = null;
         String token = null;
 
-        System.out.println("Token asdasd: " + requestToken);
         if (requestToken != null && requestToken.startsWith("Bearer ")) {
             token = requestToken.substring(7);
-            System.out.println("Token : " + token);
             try {
                 username = jwtUtil.getUserNameFromToken(token);
-            }catch(Exception ex){
-                log.info("Exception from filter : {}",ex.getMessage());
+            } catch (Exception ex) {
+                log.info("Exception from filter : {}", ex.getMessage());
             }
 
         }

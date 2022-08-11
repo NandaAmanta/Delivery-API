@@ -15,5 +15,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long>{
+    @Override
     List<Order> findAll();
+    List<Order> findByUser(String userName);
 }

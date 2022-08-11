@@ -35,8 +35,8 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<ResponseBody> createNewOrder() throws Exception {
-        var orderDTOs = orderService.getOrders();
+    public ResponseEntity<ResponseBody> getOrdersByOwner(Authentication auth) throws Exception {
+        var orderDTOs = orderService.getOrdersByOwner(auth.getName());
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success get orders", orderDTOs));
     }
 
