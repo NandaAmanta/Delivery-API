@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author ASUS
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/api/admin/user")
 public class UserController {
 
     @Autowired

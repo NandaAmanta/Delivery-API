@@ -4,6 +4,7 @@
  */
 package com.dot.test.security;
 
+import com.dot.test.model.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -40,11 +41,12 @@ public class SecurityConfig {
         http
                 .csrf().disable()
                 .authorizeRequests().antMatchers("/api/auth/signup", "/api/auth/login", "/h2-console/**").permitAll()
+                .antMatchers("/api/admin/**").hasAnyRole(UserRole.ADMIN.toString())
                 .anyRequest().authenticated().and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().authenticationEntryPoint(authEntryPoint);
-
+        ;
         http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
