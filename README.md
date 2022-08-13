@@ -64,12 +64,11 @@ To get 1 province data
   GET /api/data/provinces/{id}
 ```
 
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `originCityId`      | `string` | **Required**. Id of origin city |
-| `destinationCityId`      | `string` | **Required**. Id of destination city |
-| `courier`      | `string` | **Required**. courier : pos, tiki, jne |
-| `packageWeight`      | `string` | **Required**. your package weight |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
 
 #### City
 
@@ -86,10 +85,13 @@ To check delivery cost andcheck courier availbility.
 ```http
   GET /api/pricing
 ```
+
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
-
+| `originCityId`      | `string` | **Required**. Id of origin city |
+| `destinationCityId`      | `string` | **Required**. Id of destination city |
+| `courier`      | `string` | **Required**. courier : pos, tiki, jne |
+| `packageWeight`      | `string` | **Required**. your package weight |
 
 
 ### Order
