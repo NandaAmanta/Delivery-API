@@ -4,21 +4,19 @@
  */
 package com.dot.test.service;
 
-import com.dot.test.dto.CourierService;
 import com.dot.test.dto.CourierDTO;
-import com.dot.test.dto.ProvinceDTO;
+import com.dot.test.dto.CourierServicePricing;
 import com.dot.test.exception.CourierNotFoundException;
 import com.dot.test.exception.PartnerApiException;
 import com.dot.test.repository.PricingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import org.springframework.cache.annotation.Cacheable;
 
 /**
  *
@@ -30,7 +28,19 @@ public class PricingService {
     @Autowired
     private PricingRepository pricingRepository;
 
+    
+    @Cacheable("pricing")
     public int getPricingDelivery(String originCityId, String destinationCityId, int packageWeight, String courier) throws IOException {
+        return getPricing(originCityId, destinationCityId, packageWeight, courier).getValue();
+    }
+
+    
+    @Cacheable("pricing")
+    public CourierServicePricing getPricingDetail(String originCityId, String destinationCityId, int packageWeight, String courier) throws IOException {
+        return getPricing(originCityId, destinationCityId, packageWeight, courier);
+    }
+
+    private CourierServicePricing getPricing(String originCityId, String destinationCityId, int packageWeight, String courier) throws IOException {
         var response = pricingRepository.getPricing(
                 Integer.parseInt(originCityId), Integer.parseInt(destinationCityId), packageWeight, courier);
         if (response.getRajaongkir().getStatus().getCode() == 400) {
@@ -46,11 +56,11 @@ public class PricingService {
             listCourier.add(mapped);
         }
 
-        int price = listCourier.get(0).getCosts()
+        var price = listCourier.get(0).getCosts()
                 .stream()
                 .filter(c -> "REG".equals(c.getService()))
                 .findFirst()
-                .map(mapper -> mapper.getCost().get(0).getValue())
+                .map(mapper -> mapper.getCost().get(0))
                 .orElseThrow(() -> new CourierNotFoundException());
 
         return price;

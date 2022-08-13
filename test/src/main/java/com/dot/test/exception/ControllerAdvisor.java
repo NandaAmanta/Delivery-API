@@ -16,6 +16,7 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.client.HttpClientErrorException;
@@ -42,10 +43,10 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(CourierNotFoundException.class)
     public ResponseEntity<ResponseBody> handleCourierNotFoundException() {
-        return new ResponseEntity<>(ResponseBody.dataNotFound("Courier not found. currently we only have  pos, tiki, dan jne as our courier."), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ResponseBody.dataNotFound("Courier is not available. pos, tiki, dan jne as our courier are not available in your delivery"), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler({AuthenticationException.class,SignatureException.class})
+    @ExceptionHandler({AuthenticationException.class, SignatureException.class})
     public ResponseEntity<ResponseBody> handleAuthException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.unAuthenticated("You're not Authenticated. if you dont have an account, you can create one for you first on /api/auth/signup"), HttpStatus.FORBIDDEN);
     }
@@ -83,6 +84,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     @Override
     public ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data."), HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        return new ResponseEntity<>(ResponseBody.badRequest("Invalid Data Request, please check your data. this endpoint need some parameters : orderCityId, destinationCityId, courier, packageWeight "), HttpStatus.BAD_REQUEST);
 
     }
 
@@ -90,6 +96,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<ResponseBody> handleAccessDeniedException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.internalServerError("you're not allowed to access this endpoint"), HttpStatus.FORBIDDEN);
     }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseBody> handleUnhandleException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.internalServerError(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
