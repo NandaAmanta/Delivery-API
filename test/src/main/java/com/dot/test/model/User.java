@@ -49,7 +49,7 @@ public class User implements Serializable {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private Boolean lock = true;
+    private Boolean lock = false;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Order> orders;

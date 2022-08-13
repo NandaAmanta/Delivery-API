@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -85,6 +86,10 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ResponseBody> handleAccessDeniedException(Exception ex) {
+        return new ResponseEntity<>(ResponseBody.internalServerError("you're not allowed to access this endpoint"), HttpStatus.FORBIDDEN);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ResponseBody> handleUnhandleException(Exception ex) {
         return new ResponseEntity<>(ResponseBody.internalServerError(ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
