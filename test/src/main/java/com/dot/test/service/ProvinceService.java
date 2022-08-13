@@ -5,13 +5,8 @@
 package com.dot.test.service;
 
 import com.dot.test.dto.ProvinceDTO;
-import com.dot.test.dto.RajaOngkirResponseBody;
-import com.dot.test.exception.PartnerApiException;
-import com.dot.test.repository.ProvinceRepository;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -20,27 +15,10 @@ import org.springframework.stereotype.Service;
  * @author ASUS
  */
 @Service
-public class ProvinceService {
-
-    @Autowired
-    private ProvinceRepository provinceRepository;
+public interface ProvinceService {
 
     @Cacheable("provinces")
-    public List<ProvinceDTO> getProvinces() throws IOException, Exception {
-        RajaOngkirResponseBody<List<ProvinceDTO>> response = provinceRepository.findAll().getRajaongkir();
-        if (response.getStatus().getCode() != 200) {
-            throw new PartnerApiException();
-        }
+    public List<ProvinceDTO> getProvinces() throws IOException, Exception;
 
-        return response.getResults();
-    }
-
-    public ProvinceDTO getProvinceDetail(String id) throws IOException, Exception {
-        RajaOngkirResponseBody response = provinceRepository.findById(id).getRajaongkir();
-        if (response.getStatus().getCode() != 200) {
-            throw new PartnerApiException();
-        }
-        return new ObjectMapper().convertValue(response.getResults(), ProvinceDTO.class);
-
-    }
+    public ProvinceDTO getProvinceDetail(String id) throws IOException, Exception ;
 }
