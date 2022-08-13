@@ -2,7 +2,7 @@
 # Delivery API
 
 This repository is about my simple project using Spring Boot. 
-So Delivery API is an simple API for order a delivery service.
+So Delivery API is a simple API for order a delivery service.
 
 This project is using Spring, H2, JWT.
 ## API Reference
@@ -66,7 +66,10 @@ To get 1 province data
 
 | Parameter | Type     | Description                       |
 | :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
+| `originCityId`      | `string` | **Required**. Id of origin city |
+| `destinationCityId`      | `string` | **Required**. Id of destination city |
+| `courier`      | `string` | **Required**. courier : pos, tiki, jne |
+| `packageWeight`      | `string` | **Required**. your package weight |
 
 #### City
 
@@ -74,6 +77,19 @@ To get all Cities data.
 ```http
   GET /api/data/cities
 ```
+
+
+
+#### Check Price
+
+To check delivery cost andcheck courier availbility.
+```http
+  GET /api/pricing
+```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `string` | **Required**. Id of item to fetch |
+
 
 
 ### Order
