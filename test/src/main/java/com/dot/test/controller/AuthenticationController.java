@@ -30,7 +30,8 @@ public class AuthenticationController {
     @PostMapping(path = "/signup")
     public ResponseEntity<ResponseBody> signUpUser(@RequestBody UserCreationDTO userCreationDTO) {
         UserDTO userDTO = authService.signUp(userCreationDTO);
-        return ResponseEntity.ok(new ResponseBody(true, "200", "Success adding new user", userDTO));
+        
+        return ResponseEntity.ok(new ResponseBody(true, "200", "Success add new user", userDTO));
     }
 
     @PostMapping(path = "/login")
