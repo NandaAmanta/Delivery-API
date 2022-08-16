@@ -30,7 +30,7 @@ public class PricingController {
             @RequestParam String destinationCityId,
             @RequestParam String courier,
             @RequestParam String packageWeight
-    ) throws IOException {
+    ) throws IOException, Exception {
         var price = pricingService.getPricingDetail(originCityId, destinationCityId, Integer.parseInt(packageWeight), courier);
         return ResponseEntity.ok(new ResponseBody(true, "200", "Success Get price", price));
     }
