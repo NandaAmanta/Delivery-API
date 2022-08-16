@@ -5,6 +5,9 @@ This repository is about my simple project using Spring Boot.
 So Delivery API is a simple API for order a delivery service.
 
 This project is using Spring, H2, JWT.
+
+now this repos is on https://delivapi.herokuapp.com/
+
 ## API Reference
 response : 
 ```
