@@ -13,7 +13,7 @@ import java.util.List;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,13 +23,16 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProvinceRepository {
 
+    @Value("${RAJA_ONGKIR_KEY }")
+    private String key;
+
     public RajaOngkirResponse<List<ProvinceDTO>> findAll() throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
                 .url("https://api.rajaongkir.com/starter/province")
                 .get()
-                .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
+                .addHeader("key", key)
                 .build();
 
         Response response = client.newCall(request).execute();
@@ -44,7 +47,7 @@ public class ProvinceRepository {
         Request request = new Request.Builder()
                 .url("https://api.rajaongkir.com/starter/province?id=" + id)
                 .get()
-                .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
+                .addHeader("key", key)
                 .build();
 
         Response response = client.newCall(request).execute();
