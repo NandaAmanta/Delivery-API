@@ -15,6 +15,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -23,6 +24,9 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class PricingRepository {
+
+    @Value("${RAJA_ONGKIR_KEY }")
+    private String key;
 
     public RajaOngkirResponse getPricing(int originCityId, int destinationCityId, int packageWeight, String courier) throws IOException {
         OkHttpClient client = new OkHttpClient();
@@ -33,7 +37,7 @@ public class PricingRepository {
         Request request = new Request.Builder()
                 .url("https://api.rajaongkir.com/starter/cost")
                 .post(body)
-                .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
+                .addHeader("key", key)
                 .addHeader("content-type", "application/x-www-form-urlencoded")
                 .build();
 
