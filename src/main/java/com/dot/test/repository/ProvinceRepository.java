@@ -23,7 +23,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ProvinceRepository {
 
-    @Value("${RAJA_ONGKIR_KEY }")
+    @Value("${key.rajaongkir}")
     private String key;
 
     public RajaOngkirResponse<List<ProvinceDTO>> findAll() throws IOException {

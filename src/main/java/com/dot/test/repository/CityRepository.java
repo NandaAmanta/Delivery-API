@@ -5,9 +5,7 @@
 package com.dot.test.repository;
 
 import com.dot.test.dto.CityDTO;
-import com.dot.test.dto.ProvinceDTO;
 import com.dot.test.dto.RajaOngkirResponse;
-import com.dot.test.utils.ProvinceMapper;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.List;
@@ -16,16 +14,16 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
-
+ 
 /**
  *
  * @author ASUS
  */
 @Repository
 public class CityRepository {
-
     
-    @Value("${RAJA_ONGKIR_KEY }")
+    
+    @Value("${key.rajaongkir}")
     private String key;
     
     public RajaOngkirResponse<List<CityDTO>> findAll() throws IOException {
