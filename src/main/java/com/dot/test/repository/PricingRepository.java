@@ -28,6 +28,9 @@ public class PricingRepository {
     @Value("${key.rajaongkir}")
     private String key;
 
+    @Value("${url.rajaongkir}")
+    private String urlRajaongkir;
+
     public RajaOngkirResponse getPricing(int originCityId, int destinationCityId, int packageWeight, String courier) throws IOException {
         OkHttpClient client = new OkHttpClient();
         String data = String.format("origin=%o&destination=%o&weight=%o&courier=%s", originCityId, destinationCityId, packageWeight, courier);
@@ -35,7 +38,7 @@ public class PricingRepository {
         MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
         RequestBody body = RequestBody.create(data, mediaType);
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/cost")
+                .url(urlRajaongkir + "/cost")
                 .post(body)
                 .addHeader("key", key)
                 .addHeader("content-type", "application/x-www-form-urlencoded")

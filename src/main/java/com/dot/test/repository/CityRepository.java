@@ -14,23 +14,25 @@ import okhttp3.Request;
 import okhttp3.Response;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
- 
+
 /**
  *
  * @author ASUS
  */
 @Repository
 public class CityRepository {
-    
-    
+
     @Value("${key.rajaongkir}")
     private String key;
-    
+
+    @Value("${url.rajaongkir}")
+    private String urlRajaongkir;
+
     public RajaOngkirResponse<List<CityDTO>> findAll() throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/city")
+                .url(urlRajaongkir + "/city")
                 .get()
                 .addHeader("key", key)
                 .build();
@@ -45,7 +47,7 @@ public class CityRepository {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/city?province=" + provinceId)
+                .url(urlRajaongkir + "/city?province=" + provinceId)
                 .get()
                 .addHeader("key", key)
                 .build();
@@ -60,7 +62,7 @@ public class CityRepository {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/city?id=" + id)
+                .url(urlRajaongkir + "/city?id=" + id)
                 .get()
                 .addHeader("key", "47cb54927ed5fe60b0066e50909de571")
                 .build();

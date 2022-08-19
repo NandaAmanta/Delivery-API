@@ -26,11 +26,14 @@ public class ProvinceRepository {
     @Value("${key.rajaongkir}")
     private String key;
 
+    @Value("${url.rajaongkir}")
+    private String urlRajaongkir;
+
     public RajaOngkirResponse<List<ProvinceDTO>> findAll() throws IOException {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/province")
+                .url(urlRajaongkir + "/province")
                 .get()
                 .addHeader("key", key)
                 .build();
@@ -45,7 +48,7 @@ public class ProvinceRepository {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url("https://api.rajaongkir.com/starter/province?id=" + id)
+                .url(urlRajaongkir + "/province?id=" + id)
                 .get()
                 .addHeader("key", key)
                 .build();
